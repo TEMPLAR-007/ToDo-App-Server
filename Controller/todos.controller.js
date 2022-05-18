@@ -34,6 +34,7 @@ const getTodos = async(req, res) => {
 
 
 const deleteTodos = async(req,res) =>{
+    await client.connect();
     const postId = req.query.todoId;
     const decodedId = req.decoded.uid;
     const uid = req.query.uid;
@@ -47,4 +48,27 @@ const deleteTodos = async(req,res) =>{
     }
 }
 
-module.exports = {postTodos, getTodos, deleteTodos}
+
+const patchToDos = async(req, res) =>{
+    await client.connect();
+    const decodedId = req.decoded.uid;
+    const uid = req.query.uid;
+    const todoId = req.query.todoId;
+   if(decodedId === uid){
+      const query = {_id: ObjectId(todoId)};
+      const updateDoc = {
+          $set: {completed: true}
+      }
+      const result = await todosCollection.updateOne(query, updateDoc);
+      if(result.acknowledged){
+          res.send({success: true, message: "Completed done."})
+      }
+   }else{
+    res.status(403).send({success:false, message: "Forbidden Access."})
+}
+    
+}
+
+
+
+module.exports = {postTodos, getTodos, deleteTodos, patchToDos}

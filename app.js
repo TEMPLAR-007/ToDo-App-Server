@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const app = express();
 const todosRoute = require("./Routes/todos.route.js")
-const loginRouter = require("./routes/login.route.js")
+const loginRouter = require("./Routes/login.route.js")
 
 // middleware 
 app.use(cors());

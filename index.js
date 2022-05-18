@@ -1,21 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-
-require("dotenv").config();
-
-const app = express();
-
+const app = require("./app");
+// port 
 const port = process.env.PORT || 5000;
-
-/* run middleware */
-app.use(cors());
-app.use(express.json());
-
-
-/* test first end points */
-app.get("/", (req, res) =>{
-    res.send({success: true, message: "Task ToDos EndPoints Running"})
-});
 
 
 /* Test Listen Port */
